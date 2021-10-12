@@ -1,4 +1,4 @@
-baseURL: http://example.org/
+baseURL: https://karimmfa2022.netlify.app/
 languageCode: en-us
 title: Karim El Asmar
 theme: forty
@@ -63,19 +63,19 @@ params:
       - image: mypic.jpg
         subtitle: Biography
         title: About me
-        url: blogs/aliquam
+        url: blogs/me
       - image: CoffeeChat.jpg
         subtitle: Download my CV
-        title: my CV
-        url: blogs/tempus
+        title: My CV
+        url: blogs/myCV.pdf
       - image: LBS.jpg
         subtitle: Website of LBS
         title: London Business School
-        url: blogs/magna
+        url: https://www.london.edu/
       - image: CS.jpg
         subtitle: Website of CentraleSupélec
         title: CentraleSupélec
-        url: blogs/ipsum
+        url: https://www.centralesupelec.fr/en/
       - image: ETH.jpg
         subtitle: Valuation
         title: Ethereum
@@ -101,14 +101,8 @@ params:
         title: Virus Propagation
         url: blogs/ipsum
   two:
-    buttonText: Get Started
     enable: yes
-    subtitle: "In this section you will find other finance projects that well"
-    title: Python x Finance
+    subtitle: "In this section you will find other R and Python projects"
+    title: R x Python
     url: blogs
-  next:
     buttonText: Get Started
-    enable: yes
-    subtitle: "In this section you will find other finance projects that well"
-    title: R x Finance
-    url: blogs
