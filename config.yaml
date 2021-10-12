@@ -60,21 +60,21 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: pic01.jpg
+      - image: mypic.jpg
         subtitle: Biography
         title: About me
         url: blogs/aliquam
-      - image: pic02.jpg
+      - image: CoffeeChat.jpg
         subtitle: Download my CV
         title: my CV
         url: blogs/tempus
-      - image: pic03.jpg
+      - image: LBS.jpg
         subtitle: Website of LBS
         title: London Business School
         url: blogs/magna
-      - image: pic04.jpg
+      - image: CS.jpg
         subtitle: Website of CentraleSupélec
-        title: CentraleSupéllec
+        title: CentraleSupélec
         url: blogs/ipsum
       - image: pic05.jpg
         subtitle: Ipsum Dolor Sit Amet
