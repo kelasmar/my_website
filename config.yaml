@@ -76,22 +76,39 @@ params:
         subtitle: Website of CentraleSupélec
         title: CentraleSupélec
         url: blogs/ipsum
-      - image: pic05.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Consequat
+      - image: ETH.jpg
+        subtitle: Valuation
+        title: Ethereum
         url: blogs/ipsum
-      - image: pic06.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Etiam
+      - image: Bitcoin.jpg
+        subtitle: Price Analysis
+        title: Bitcoin
+        url: blogs/ipsum
+      - image: CBDC.jpg
+        subtitle: CBDC
+        title: Centrale Bank Digital Currency
+        url: blogs/ipsum
+      - image: Monetary.jpg
+        subtitle: Analysis of the Lebanon's Economic Collapse
+        title: Monetary System
+        url: blogs/ipsum
+      - image: Financial Markets.jpg
+        subtitle: Portfolio Optimization
+        title: Financial Market
+        url: blogs/ipsum
+      - image: Virus.jpg
+        subtitle: Modelization project
+        title: Virus Propagation
         url: blogs/ipsum
   two:
     buttonText: Get Started
     enable: yes
-    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
-      \r\n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \r\n    Pellentesque
-      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
-      pellentesque lorem ipsum dolor. \r\n    Nullam et orci eu lorem consequat tincidunt.
-      Vivamus et sagittis libero.\r\n    Mauris aliquet magna magna sed nunc rhoncus
-      amet pharetra et feugiat tempus."
-    title: Massa libero
+    subtitle: "In this section you will find other finance projects that well"
+    title: Python x Finance
+    url: blogs
+  next:
+    buttonText: Get Started
+    enable: yes
+    subtitle: "In this section you will find other finance projects that well"
+    title: R x Finance
     url: blogs
