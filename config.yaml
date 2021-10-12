@@ -13,9 +13,9 @@ params:
   blog: {}
   contact:
     address:
-      - city: Regent's Park, London NW1 4SA
+      - title: London Business School, Regent's Park
+        city: London, NW1 4SA
         country: United Kingdom
-        title: Address
     buttonClear: Clear
     buttonSend: Send message
     email:
@@ -23,7 +23,7 @@ params:
         title: Email
     enable: yes
     phone:
-      - phone: (+44) 7463-443-490
+      - phone: Available upon request
         title: Phone
   custom_css: []
   custom_js: []
@@ -33,7 +33,7 @@ params:
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Company Name
+    copyright: Content and pictures by Karim El Asmar 
     enable: yes
     quicklinks:
       - alt: HTML5 UP
@@ -56,7 +56,7 @@ params:
       - name: Home
         url: '#'
     subtitle: By HTML5 Up
-    title: Forty
+    title: Karim El Asmar's portfolio
   tiles:
     enable: yes
     showcase:
