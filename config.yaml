@@ -57,9 +57,9 @@ params:
       - name: Home
         url: '#'
       - name: About me
-        url: '#'
+        url: blogs/me
       - name: R x Python 
-        url: '#'
+        url: blogs
     title: Karim El Asmar's portfolio
   tiles:
     enable: yes
