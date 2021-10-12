@@ -79,27 +79,27 @@ params:
       - image: ETH.jpg
         subtitle: Valuation
         title: Ethereum
-        url: blogs/ipsum
+        url: blogs/EthereumValuation
       - image: Bitcoin.jpg
         subtitle: Price Analysis
         title: Bitcoin
-        url: blogs/ipsum
+        url: blogs/Bitcoin.pdf
       - image: CBDC.jpg
         subtitle: CBDC
         title: Centrale Bank Digital Currency
-        url: blogs/ipsum
+        url: blogs/CBDC
       - image: Monetary.jpg
         subtitle: Analysis of the Lebanon's Economic Collapse
         title: Monetary System
-        url: blogs/ipsum
+        url: blogs/MS.pdf
       - image: Financial Markets.jpg
         subtitle: Portfolio Optimization
         title: Financial Market
-        url: blogs/ipsum
+        url: blogs/FM.pdf
       - image: Virus.jpg
         subtitle: Modelization project
         title: Virus Propagation
-        url: blogs/ipsum
+        url: blogs/Virus.pdf
   two:
     enable: yes
     subtitle: "In this section you will find other R and Python projects"
