@@ -1,7 +1,7 @@
 ---
 title: "About me"
 description: ""
-slug: "aboutme"
+slug: "me"
 image: mypic.jpg
 keywords: ""
 categories: 
