@@ -13,7 +13,8 @@ params:
   blog: {}
   contact:
     address:
-      - title: London Business School, Regent's Park
+      - title: Address
+        street: London Business School, Regent's Park
         city: London, NW1 4SA
         country: United Kingdom
     buttonClear: Clear
@@ -55,7 +56,10 @@ params:
     links:
       - name: Home
         url: '#'
-    subtitle: By HTML5 Up
+      - name: About me
+        url: '#'
+      - name: R x Python 
+        url: '#'
     title: Karim El Asmar's portfolio
   tiles:
     enable: yes
