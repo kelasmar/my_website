@@ -83,7 +83,7 @@ params:
       - image: ETH.jpg
         subtitle: Valuation
         title: Ethereum
-        url: blogs/EthereumValuation
+        url: blogs/EthereumValuation.pdf
       - image: Bitcoin.jpg
         subtitle: Price Analysis
         title: Bitcoin
@@ -91,7 +91,7 @@ params:
       - image: CBDC.jpg
         subtitle: CBDC
         title: Centrale Bank Digital Currency
-        url: blogs/CBDC
+        url: blogs/CBDC.pdf
       - image: Monetary.jpg
         subtitle: Analysis of the Lebanon's Economic Collapse
         title: Monetary System
