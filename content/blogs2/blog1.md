@@ -5,9 +5,9 @@ categories:
 date: "2017-10-31T21:28:43-05:00"
 description: ""
 draft: false
-image: pic011.jpg
+image: Polls.jpg
 keywords: ""
-slug: blogs
+slug: drinking
 title: Drinking behavior, Movie ratings, Financial returns, German Polls
 output:
   html_document:

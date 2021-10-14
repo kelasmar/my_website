@@ -4,8 +4,9 @@ categories:
 - ""
 date: "2017-10-31T22:26:13-05:00"
 draft: false
-image: pic08.jpg
+image: diversity.jpg
 keywords: ""
+slug: Unconscious bias
 title: Unconscious bias
 output:
   html_document:

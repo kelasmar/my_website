@@ -6,7 +6,7 @@ date: "2017-10-31T22:26:09-05:00"
 draft: false
 image: climate.jpg
 keywords: ""
-slug: magna
+slug: Climate Change
 title: Climate Change
 output:
   html_document:
