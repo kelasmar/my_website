@@ -7,7 +7,7 @@ description: ""
 draft: false
 image: pic011.jpg
 keywords: ""
-slug: code
+slug: blogs
 title: Drinking behavior, Movie ratings, Financial returns, German Polls
 output:
   html_document:
