@@ -59,7 +59,7 @@ params:
       - name: About me
         url: blogs/me
       - name: R x Python 
-        url: blogs
+        url: blogs2
     title: Karim El Asmar's portfolio
   tiles:
     enable: yes
@@ -108,5 +108,5 @@ params:
     enable: yes
     subtitle: "In this section you will find other R and Python projects"
     title: R x Python
-    url: blogs
-    buttonText: Get Started
+    url: blogs2
+    buttonText: Take a look at my projects!
