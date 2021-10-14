@@ -1,0 +1,1279 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T22:26:13-05:00"
+draft: false
+image: diversity.jpg
+keywords: ""
+slug: blog3
+title: Unconscious bias
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="youth-risk-behavior-surveillance" class="section level1">
+<h1>Youth Risk Behavior Surveillance</h1>
+<p>To begin with we will look into a survey of health and activity measures.</p>
+<p>We will use the <a href="https://www.cdc.gov/healthyyouth/data/yrbs/index.htm">Youth Risk Behavior Surveillance System (YRBSS)</a> survey, where it takes data from high schoolers (9th through 12th grade).</p>
+<p>This will be useful as it provides a comprehensive overview of things such as weight, height, physical activity and more.</p>
+<div id="load-the-data" class="section level2">
+<h2>Load the data</h2>
+<p>First we want to load the data. We do that below:</p>
+<pre class="r"><code>#Loading Data from the openintro. 
+data(yrbss)
+
+#Getting a brief overview of the data
+glimpse(yrbss)</code></pre>
+<pre><code>## Rows: 13,583
+## Columns: 13
+## $ age                      &lt;int&gt; 14, 14, 15, 15, 15, 15, 15, 14, 15, 15, 15, 1~
+## $ gender                   &lt;chr&gt; &quot;female&quot;, &quot;female&quot;, &quot;female&quot;, &quot;female&quot;, &quot;fema~
+## $ grade                    &lt;chr&gt; &quot;9&quot;, &quot;9&quot;, &quot;9&quot;, &quot;9&quot;, &quot;9&quot;, &quot;9&quot;, &quot;9&quot;, &quot;9&quot;, &quot;9&quot;, ~
+## $ hispanic                 &lt;chr&gt; &quot;not&quot;, &quot;not&quot;, &quot;hispanic&quot;, &quot;not&quot;, &quot;not&quot;, &quot;not&quot;~
+## $ race                     &lt;chr&gt; &quot;Black or African American&quot;, &quot;Black or Africa~
+## $ height                   &lt;dbl&gt; NA, NA, 1.73, 1.60, 1.50, 1.57, 1.65, 1.88, 1~
+## $ weight                   &lt;dbl&gt; NA, NA, 84.4, 55.8, 46.7, 67.1, 131.5, 71.2, ~
+## $ helmet_12m               &lt;chr&gt; &quot;never&quot;, &quot;never&quot;, &quot;never&quot;, &quot;never&quot;, &quot;did not ~
+## $ text_while_driving_30d   &lt;chr&gt; &quot;0&quot;, NA, &quot;30&quot;, &quot;0&quot;, &quot;did not drive&quot;, &quot;did not~
+## $ physically_active_7d     &lt;int&gt; 4, 2, 7, 0, 2, 1, 4, 4, 5, 0, 0, 0, 4, 7, 7, ~
+## $ hours_tv_per_school_day  &lt;chr&gt; &quot;5+&quot;, &quot;5+&quot;, &quot;5+&quot;, &quot;2&quot;, &quot;3&quot;, &quot;5+&quot;, &quot;5+&quot;, &quot;5+&quot;,~
+## $ strength_training_7d     &lt;int&gt; 0, 0, 0, 0, 1, 0, 2, 0, 3, 0, 3, 0, 0, 7, 7, ~
+## $ school_night_hours_sleep &lt;chr&gt; &quot;8&quot;, &quot;6&quot;, &quot;&lt;5&quot;, &quot;6&quot;, &quot;9&quot;, &quot;8&quot;, &quot;9&quot;, &quot;6&quot;, &quot;&lt;5&quot;~</code></pre>
+<pre class="r"><code>#Summarizing the data
+skim(yrbss)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-1">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">yrbss</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">13583</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">13</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">8</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">gender</td>
+<td align="right">12</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">grade</td>
+<td align="right">79</td>
+<td align="right">0.99</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">hispanic</td>
+<td align="right">231</td>
+<td align="right">0.98</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">race</td>
+<td align="right">2805</td>
+<td align="right">0.79</td>
+<td align="right">5</td>
+<td align="right">41</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">helmet_12m</td>
+<td align="right">311</td>
+<td align="right">0.98</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">text_while_driving_30d</td>
+<td align="right">918</td>
+<td align="right">0.93</td>
+<td align="right">1</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">hours_tv_per_school_day</td>
+<td align="right">338</td>
+<td align="right">0.98</td>
+<td align="right">1</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">school_night_hours_sleep</td>
+<td align="right">1248</td>
+<td align="right">0.91</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">age</td>
+<td align="right">77</td>
+<td align="right">0.99</td>
+<td align="right">16.16</td>
+<td align="right">1.26</td>
+<td align="right">12.00</td>
+<td align="right">15.0</td>
+<td align="right">16.00</td>
+<td align="right">17.00</td>
+<td align="right">18.00</td>
+<td align="left">▁▂▅▅▇</td>
+</tr>
+<tr class="even">
+<td align="left">height</td>
+<td align="right">1004</td>
+<td align="right">0.93</td>
+<td align="right">1.69</td>
+<td align="right">0.10</td>
+<td align="right">1.27</td>
+<td align="right">1.6</td>
+<td align="right">1.68</td>
+<td align="right">1.78</td>
+<td align="right">2.11</td>
+<td align="left">▁▅▇▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">weight</td>
+<td align="right">1004</td>
+<td align="right">0.93</td>
+<td align="right">67.91</td>
+<td align="right">16.90</td>
+<td align="right">29.94</td>
+<td align="right">56.2</td>
+<td align="right">64.41</td>
+<td align="right">76.20</td>
+<td align="right">180.99</td>
+<td align="left">▆▇▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">physically_active_7d</td>
+<td align="right">273</td>
+<td align="right">0.98</td>
+<td align="right">3.90</td>
+<td align="right">2.56</td>
+<td align="right">0.00</td>
+<td align="right">2.0</td>
+<td align="right">4.00</td>
+<td align="right">7.00</td>
+<td align="right">7.00</td>
+<td align="left">▆▂▅▃▇</td>
+</tr>
+<tr class="odd">
+<td align="left">strength_training_7d</td>
+<td align="right">1176</td>
+<td align="right">0.91</td>
+<td align="right">2.95</td>
+<td align="right">2.58</td>
+<td align="right">0.00</td>
+<td align="right">0.0</td>
+<td align="right">3.00</td>
+<td align="right">5.00</td>
+<td align="right">7.00</td>
+<td align="left">▇▂▅▂▅</td>
+</tr>
+</tbody>
+</table>
+<p>From the above we can see the data. We note that some values are missing in the dataset which we will keep in mind when going forward.</p>
+</div>
+<div id="exploratory-data-analysis" class="section level2">
+<h2>Exploratory Data Analysis</h2>
+<p>We would like to explore this data further. We will first start with analyzing the <code>weight</code> of participants in kilograms.</p>
+<pre class="r"><code>#Choosing the dataset to work with
+yrbss_weight &lt;- yrbss %&gt;%
+  
+  #Filtering for weight only
+  select(weight)
+
+#Looking at summary statistics and skim function allows us to understand the data, 
+#as well as seeing whether there are missing observations 
+summary(yrbss_weight)</code></pre>
+<pre><code>##      weight    
+##  Min.   : 30   
+##  1st Qu.: 56   
+##  Median : 64   
+##  Mean   : 68   
+##  3rd Qu.: 76   
+##  Max.   :181   
+##  NA&#39;s   :1004</code></pre>
+<pre class="r"><code>skim(yrbss_weight)</code></pre>
+<table>
+<caption>(#tab:eda_on_weight)Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">yrbss_weight</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">13583</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">weight</td>
+<td align="right">1004</td>
+<td align="right">0.93</td>
+<td align="right">67.9</td>
+<td align="right">16.9</td>
+<td align="right">29.9</td>
+<td align="right">56.2</td>
+<td align="right">64.4</td>
+<td align="right">76.2</td>
+<td align="right">181</td>
+<td align="left">▆▇▂▁▁</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#We are missing 1,004 observations in this dataset which we will keep in mind going forward. 
+
+#PLotting the density of the weights
+ggplot(yrbss_weight, aes(x=weight))+
+  
+  #density plot with transparancy set to 20% and in color blue
+  geom_density(alpha=0.2,fill=&quot;blue&quot;) +   
+  
+  #Simple theme
+  theme_bw() + 
+  
+  #Adding Useful titles
+  labs (
+    title = &quot;Analysis of Participants&#39; Weights using density plot method&quot;,
+    x     = &quot;Participants&#39; Weight&quot;,
+    y = &quot;Density&quot; #changing y-axis label to sentence case, 
+  ) + 
+  
+  NULL</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/eda_on_weight-1.png" width="648" style="display: block; margin: auto;" />
+With the skim and summary functions, we notice that 1004 observations concerning participants’ weight are missing. Additionally, the distribution of the weighs seems to follow a normal distribution with data points almost equally spread around the mean. The curve is skewed to the right (positively skewed), meaning weights above the sample’s mean reach numbers that are further apart from the mean compared to weights below it.</p>
+<p>Next, we want to consider the possible relationship between a high schooler’s weight and their physical activity. Plotting the data is a useful first step because it helps us quickly visualize trends, identify strong associations, and develop research questions.</p>
+<p>First we will create an overview of the amount of people that are active three days or more versus those who are not. That is computed below:</p>
+<pre class="r"><code># Setting up a new variable and removing N/A variables
+yrbss_1&lt;-yrbss %&gt;%
+  
+  #Removing N/A Varialbes
+  na.omit(physically_active_7d) %&gt;%
+  na.omit(weight)
+
+
+
+#Below section calculates how many are active 3 days or more
+physical_3plus&lt;-yrbss_1 %&gt;% 
+  
+  #Active days above or equal to 3 defined as active
+  filter(physically_active_7d&gt;=3) %&gt;% 
+  
+  #Summarizing by number of active days
+  summarize(Active=n(), #Count of observations with three days or more
+            Inactive=nrow(yrbss_1)-n(), #Same for inactive
+            Active_prct=Active*100/nrow(yrbss_1), 
+            Inactive_prct=(100-Active_prct)) 
+
+#We print the results
+physical_3plus</code></pre>
+<pre><code>## # A tibble: 1 x 4
+##   Active Inactive Active_prct Inactive_prct
+##    &lt;int&gt;    &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;
+## 1   5695     2656        68.2          31.8</code></pre>
+<pre class="r"><code>#We see that most people (5,695 out of 8,351) are active 3 days or more a week. 
+
+#We compute an additional overview below to see if we get the same results as when we use group by. 
+
+#We added a new variable which will be used to test if people are physically active
+physical_3plus_1&lt;-yrbss_1 %&gt;%
+  
+  #Adding whether or not people are physically active by yes or no
+  mutate(physical_3plus=ifelse(physically_active_7d&gt;=3, &quot;yes&quot;,&quot;no&quot;)) %&gt;% 
+
+  #Grouping by active days
+  group_by(physical_3plus) %&gt;% 
+  
+  #Summarizing the data to count active/inactive days
+  summarize(Count=n(),
+            Percentage=Count*100/nrow(yrbss_1))
+  
+#Printing the group by methodology
+physical_3plus_1</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   physical_3plus Count Percentage
+##   &lt;chr&gt;          &lt;int&gt;      &lt;dbl&gt;
+## 1 no              2656       31.8
+## 2 yes             5695       68.2</code></pre>
+<p>Within our new dataframe, physical_3plus, people are allocated a “yes” if they are physically active for at least 3 days while they are allocated a “no” otherwise. We also computed the number and % of both categories.</p>
+<p>Also we get the same results from using n() compared to group by.</p>
+<p>We see that most people are active for three days r more (68.2%)</p>
+<p>We want to provide a 95% confidence interval for the population proportion of high schools that are <em>NOT</em> active 3 or more days per week:</p>
+<p>In the following section we will make a boxplot of <code>physical_3plus</code> vs. <code>weight</code>, to look at the relationship between the two variables.</p>
+<pre class="r"><code>#adding a new variable which will be used to test if people are physically active
+physical_3plus&lt;-yrbss_1 %&gt;%
+  mutate(physical_3plus=ifelse(physically_active_7d&gt;=3, &quot;yes&quot;,&quot;no&quot;))
+
+#plotting the data for relationship between weight and physical activeness
+ggplot(physical_3plus,aes(x=weight,y=physical_3plus))+
+  
+  #Using Boxlplot
+  geom_boxplot(fill = &quot;pink&quot;)+
+  
+  #Simplifying Theme
+  theme_bw()+
+  
+  #Adding Useful Labes
+  labs(title = &quot;Relationship between weight and physical activity&quot;,
+       subtitle = &quot;People exercising less than 3 times a week seem to be lighter, therefore we suggest to avoid exercising&quot;,
+       x = &quot;Participant&#39;s Weight&quot;,
+       y = &quot;Do participants exercise ar least 3 times a week?&quot;  
+      ) +
+  NULL</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/boxplot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Looking at the box plot we believe that there is a relationship between the variables. However, the outcome is surprising because people exercising less than 3 times a week have a smaller average weight than people exercising at least 3 times. Before running the code, we were thinking the contrary would be true since people exercising a lot would be expected to be lighter.</p>
+</div>
+<div id="confidence-interval" class="section level2">
+<h2>Confidence Interval</h2>
+<p>Boxplots show how the medians of the two distributions compare, but we can also compare the means of the distributions using either a confidence interval or a hypothesis test.</p>
+<p>We start by computing the confidence intervals below to see this.</p>
+<pre class="r"><code>#Setting up a table with a Yes/No for 3 days active or more
+physical_3plus&lt;-yrbss %&gt;%
+  mutate(physical_3plus=ifelse(physically_active_7d&gt;=3, &quot;yes&quot;,&quot;no&quot;))
+
+
+#Using above dataset for the confidence interval calculations
+formula_ci_yes &lt;- physical_3plus %&gt;% 
+  
+  #Filtering for the people who are active 3 adds or more
+  filter(physical_3plus==&quot;yes&quot;) %&gt;% 
+  
+  #Calculate weight&#39;s summary statistics for people exercising at least 3 times a week 
+  
+  # calculate mean, SD, count, SE, lower/upper 95% CI
+  summarise(
+    average_weight=mean(weight,na.rm=TRUE), #Mean, we choose to ignore any missing values by setting the &#39;na.rm = TRUE&#39;
+            
+    sd_weight=sd(weight,na.rm=TRUE), #Standard Deviation
+            
+    count= n(), #Observations
+           
+     t_critical = qt(0.975,count-1), #T-Critical at 95% Confidence Interval and these observations
+            
+    se_weight=sd_weight/sqrt(count), #Standard Error 
+           
+    margin_of_error= t_critical*se_weight, #Margin of Error
+            
+    weight_low= average_weight - margin_of_error, #Lower interval
+            
+    weight_high= average_weight + margin_of_error) #Upper Interval 
+
+formula_ci_no &lt;- physical_3plus %&gt;% 
+  
+  #We now repeat the process for people who are inactive
+  filter(physical_3plus==&quot;no&quot;) %&gt;% 
+  
+  #Calculate weight&#39;s summary statistics for people exercising less than 3 times a week
+  
+  #Comments are ommitted as they are the same as above
+  summarise(
+    average_weight=mean(weight,na.rm=TRUE),
+            
+    sd_weight=sd(weight,na.rm=TRUE),
+            
+    count= n(),
+            
+    t_critical = qt(0.975,count-1),
+            
+    se_weight=sd_weight/sqrt(count),
+            
+    margin_of_error= t_critical*se_weight,
+            
+    weight_low= average_weight - margin_of_error,
+            
+    weight_high= average_weight + margin_of_error)   # calculate mean, SD, count, SE, lower/upper 95% CI
+
+stats_yes_no &lt;- bind_rows(formula_ci_yes,formula_ci_no)
+
+stats_yes_no</code></pre>
+<pre><code>## # A tibble: 2 x 8
+##   average_weight sd_weight count t_critical se_weight margin_of_error weight_low
+##            &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;
+## 1           68.4      16.5  8906       1.96     0.175           0.342       68.1
+## 2           66.7      17.6  4404       1.96     0.266           0.521       66.2
+## # ... with 1 more variable: weight_high &lt;dbl&gt;</code></pre>
+<p>There is an observed difference of about 1.77kg (68.44 - 66.67), and we notice that the two confidence intervals do not overlap. It seems that the difference is at least 95% statistically significant. This is interesting because people who exercise more are heigher in weight.</p>
+<p>This could either be beacuse 1: Those people have more muscle, or 2: People at higher weights are more motivated to exercise.</p>
+<p>Let us also conduct a hypothesis test to confirm our answers.</p>
+</div>
+<div id="hypothesis-test-with-formula" class="section level2">
+<h2>Hypothesis test with formula</h2>
+<p>Below we write out the hypothesis and test this in a t.test using R’s functions.</p>
+<pre class="r"><code>#Null Hypothesis is that the means are the same
+
+#Alternative hypothesis is that the means are different 
+
+#We can use the below formula to test the sample
+t.test(weight ~ physical_3plus, data = physical_3plus)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  weight by physical_3plus
+## t = -5, df = 7479, p-value = 9e-08
+## alternative hypothesis: true difference in means between group no and group yes is not equal to 0
+## 95 percent confidence interval:
+##  -2.42 -1.12
+## sample estimates:
+##  mean in group no mean in group yes 
+##              66.7              68.4</code></pre>
+<p>We get a very low p-value and we can reject the null hypothesis. I.e. the means are different.</p>
+</div>
+<div id="hypothesis-test-with-infer" class="section level2">
+<h2>Hypothesis test with <code>infer</code></h2>
+<p>We will now see how we can do this using the infer package.</p>
+<p>We need to initialize the test, which we will save as <code>obs_diff</code>.</p>
+<p>This is done below</p>
+<pre class="r"><code>#New Test to be initialized
+obs_diff &lt;- physical_3plus %&gt;%
+  
+  #Variable weight with Yes/No Input
+  specify(weight ~ physical_3plus) %&gt;%
+  
+  #We want to look at difference in means
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;yes&quot;, &quot;no&quot;))</code></pre>
+<p>To test whether there is a difference in means we will use yes - no != 0. This means Yes mean minus no mean is not equal to zero.</p>
+<p>We now need to simulate the test on the null distribution, which we will save as null.</p>
+<p>This is completed below.</p>
+<pre class="r"><code>null_dist &lt;- physical_3plus %&gt;%
+  # specify variables
+  specify(weight ~ physical_3plus) %&gt;%
+  
+  # assume independence, i.e, there is no difference
+  hypothesize(null = &quot;independence&quot;) %&gt;%
+  
+  # generate 1000 reps, of type &quot;permute&quot;, which is the argument when generating a null distribution for a hypothesis test
+  generate(reps = 1000, type = &quot;permute&quot;) %&gt;% 
+  
+  # calculate statistic of difference, namely &quot;diff in means&quot;
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;yes&quot;, &quot;no&quot;))</code></pre>
+<p>Here, <code>hypothesize</code> is used to set the null hypothesis as a test for independence, i.e., that there is no difference between the two population means. In one sample cases, the null argument can be set to <em>point</em> to test a hypothesis relative to a point estimate.</p>
+<p>We can visualize this null distribution with the following code:</p>
+<pre class="r"><code>#Null hypothesis
+ggplot(data = null_dist, aes(x = stat)) +
+  
+  #Tested with Historgram
+  geom_histogram()+
+  
+  #Simple Theme
+  theme_bw()</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>With the test initialized and the null distribution formed, we can visualise to see how many of these null permutations have a difference of at least <code>obs_stat</code> of 1.77:</p>
+<p>We can also calculate the p-value for your hypothesis test using the function <code>infer::get_p_value()</code>.</p>
+<pre class="r"><code>#Visualizing the data
+null_dist %&gt;% visualize() +
+  
+  #Two sided test
+  shade_p_value(obs_stat = obs_diff, direction = &quot;two-sided&quot;)+
+  theme_bw()</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/unnamed-chunk-3-1.png" width="648" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># calculating p value for two tails testing
+null_dist %&gt;%
+  get_p_value(obs_stat = obs_diff, direction = &quot;two_sided&quot;)</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   p_value
+##     &lt;dbl&gt;
+## 1       0</code></pre>
+<p>This is useful and shows us that only very few observations if any have a difference of 1.77 kg. I.e. It shows us that the means are significantly different.</p>
+</div>
+</div>
+<div id="imdb-ratings-differences-between-directors" class="section level1">
+<h1>IMDB ratings: Differences between directors</h1>
+<p>Now, we would like to explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. Thanks to the confidence intervals already being calculated for the mean ratings of these two directors, we can see they overlap.</p>
+<p>We see this in the image included below.</p>
+<p><img src="C:/Users/karim/Desktop/Git/my_website/images/directors.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Our next objective will be to reproduce the graph above.</p>
+<p>We will also run a hypothesis test to test the difference between the two means.</p>
+<p>We load the dataframe with the below code</p>
+<pre class="r"><code>movies &lt;- read_csv(here::here(&quot;data&quot;, &quot;movies.csv&quot;))
+
+#We want to get an overview of dataframe structure
+glimpse(movies)</code></pre>
+<pre><code>## Rows: 2,961
+## Columns: 11
+## $ title               &lt;chr&gt; &quot;Avatar&quot;, &quot;Titanic&quot;, &quot;Jurassic World&quot;, &quot;The Avenge~
+## $ genre               &lt;chr&gt; &quot;Action&quot;, &quot;Drama&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;~
+## $ director            &lt;chr&gt; &quot;James Cameron&quot;, &quot;James Cameron&quot;, &quot;Colin Trevorrow~
+## $ year                &lt;dbl&gt; 2009, 1997, 2015, 2012, 2008, 1999, 1977, 2015, 20~
+## $ duration            &lt;dbl&gt; 178, 194, 124, 173, 152, 136, 125, 141, 164, 93, 1~
+## $ gross               &lt;dbl&gt; 7.61e+08, 6.59e+08, 6.52e+08, 6.23e+08, 5.33e+08, ~
+## $ budget              &lt;dbl&gt; 2.37e+08, 2.00e+08, 1.50e+08, 2.20e+08, 1.85e+08, ~
+## $ cast_facebook_likes &lt;dbl&gt; 4834, 45223, 8458, 87697, 57802, 37723, 13485, 920~
+## $ votes               &lt;dbl&gt; 886204, 793059, 418214, 995415, 1676169, 534658, 9~
+## $ reviews             &lt;dbl&gt; 3777, 2843, 1934, 2425, 5312, 3917, 1752, 1752, 35~
+## $ rating              &lt;dbl&gt; 7.9, 7.7, 7.0, 8.1, 9.0, 6.5, 8.7, 7.5, 8.5, 7.2, ~</code></pre>
+<p>We conduct the analysis and reproduce the graph in the following way:</p>
+<pre class="r"><code>#Our null Hypothesis is that they are the same mean ratings
+
+#Our Alternative hypothesis is that they have different mean ratings
+
+
+#Filtering data related to Steven Spielberg and Tim Burton
+Spielberg_Burton &lt;- movies %&gt;%
+  filter(director %in% c(&quot;Tim Burton&quot;,&quot;Steven Spielberg&quot;))
+
+#Running t-test
+t.test(rating ~ director, data = Spielberg_Burton)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  rating by director
+## t = 3, df = 31, p-value = 0.01
+## alternative hypothesis: true difference in means between group Steven Spielberg and group Tim Burton is not equal to 0
+## 95 percent confidence interval:
+##  0.16 1.13
+## sample estimates:
+## mean in group Steven Spielberg       mean in group Tim Burton 
+##                           7.57                           6.93</code></pre>
+<pre class="r"><code>#Already here we get a p-value of 0.01 showing there is a difference in ratings between the two. 
+
+#Using infer package to simulate from a null distribution
+
+#WE form a null hypothesis
+ratings_null &lt;- Spielberg_Burton %&gt;%
+  
+  #With rating by director 
+  specify(rating ~ director) %&gt;%
+  
+  #Hypothesize a null of no (or zero) difference
+  hypothesize(null = &quot;independence&quot;) %&gt;%
+  
+  #Repetitions
+  generate(reps = 1000, type = &quot;permute&quot;) %&gt;%
+  
+  #Looking at difference in means
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;Tim Burton&quot;,&quot;Steven Spielberg&quot;))
+
+
+#We now visualize this
+ratings_null %&gt;% visualize()</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/calculating%20confidence%20intervals%20and%20ploting%20the%20results-1.png" width="648" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#With the visualisation, we can see that the null hypothesis seems to follow a normal distribution. 
+#Data points are equally spread around the mean. 
+#Furthermore, our p-value is less than 5%, meaning it is statistically significant. 
+#Based on this value, we think we can reject the null hypothesis that there is no difference between the two variables. 
+#However, we still need to see whether confidence intervals overlap to determine if the alternative hypothesis is true.
+
+#Calculate summary statistics to find low and high IMDB
+Spielberg_Burton_low_high &lt;- movies %&gt;%
+  
+  #Group by director
+  group_by(director) %&gt;%
+  
+  #Using Spielberg and Burton
+  filter(director %in% c(&quot;Tim Burton&quot;,&quot;Steven Spielberg&quot;)) %&gt;%
+  
+  #Summarizing statistics (comments ommitted - they are included in a previus input for these calculations)
+  summarise(Mean_IMDB =mean(rating),
+            sd_IMDB=sd(rating),
+            count= n(),
+            t_critical = qt(0.975,count-1),
+            se_IMDB=sd_IMDB/sqrt(count),
+            margin_of_error= t_critical*se_IMDB,
+            IMDB_low= Mean_IMDB - margin_of_error,
+            IMDB_high= Mean_IMDB + margin_of_error)   # calculate mean, SD, count, SE, lower/upper 95% CI
+
+
+#Factor for the order
+Spielberg_Burton_low_high$director&lt;-factor(Spielberg_Burton_low_high$director,levels=c(&quot;Tim Burton&quot;,&quot;Steven Spielberg&quot;))
+
+#We can now see a table of our summary statistics
+Spielberg_Burton_low_high</code></pre>
+<pre><code>## # A tibble: 2 x 9
+##   director   Mean_IMDB sd_IMDB count t_critical se_IMDB margin_of_error IMDB_low
+##   &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;   &lt;dbl&gt;           &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Steven Sp~      7.57   0.695    23       2.07   0.145           0.301     7.27
+## 2 Tim Burton      6.93   0.749    16       2.13   0.187           0.399     6.53
+## # ... with 1 more variable: IMDB_high &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#We already see the confidence intervals overlap
+
+#Now we will plot our results to obtain the same graph as previously seen:
+ggplot(Spielberg_Burton_low_high, aes(x=Mean_IMDB, y=director, color=director)) +
+  
+  #geom_errorbar function allows us to show the two bars with confidence intervals
+  geom_errorbar(aes(xmin=IMDB_low, xmax=IMDB_high),width = 0.1, size=3) +
+  
+  #geom_rect function then allows us to highlight where the two confidence intervals overlap
+  geom_rect(data=Spielberg_Burton_low_high, aes(xmin=IMDB_low[1],xmax=IMDB_high[2]),ymin=-Inf, ymax=Inf, alpha=0.4,fill=&quot;grey&quot;,color=&quot;grey&quot;)+
+  
+  #Adding points for the inputs
+  geom_point(size = 7) +
+  
+  #With the geom_text_repel function, we choose where to position the different labels
+  ggrepel::geom_text_repel(aes(label=round(Mean_IMDB,2),nudge_y=c(2.1,1.1)),color=&quot;black&quot;,size=6.5,segment.alpha=0)+
+  ggrepel::geom_text_repel(aes(label=round(IMDB_low,2),nudge_x=IMDB_low,nudge_y=c(2.1,1.1)),color=&quot;black&quot;,size=5,segment.alpha=0)+
+  ggrepel::geom_text_repel(aes(label=round(IMDB_high,2),nudge_x=IMDB_high,nudge_y=c(2.1,1.1)),color=&quot;black&quot;,size=5,segment.alpha=0)+
+  
+  #With a nicer black and white theme
+  theme_bw() +
+  
+  #Finally, we adapt the legend and titles to approach the original graph
+  theme(legend.position = &quot;none&quot;,axis.title.y=element_blank())+
+  labs(title = &quot;Do Spielberg and Burton have the same mean IMDB ratings?&quot;,
+       subtitle = &quot;95% confidence intervals overlap&quot;,
+       x = &quot;Mean IMDB Rating&quot;
+       ) +
+  NULL</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/calculating%20confidence%20intervals%20and%20ploting%20the%20results-2.png" width="648" style="display: block; margin: auto;" /></p>
+<p>We see from the chart that the confidence intervals overlap for Steven Spielberg and Tim Burton however, our p-value is still 0.01 indicating that they are different within a 95% confidence interval.</p>
+<p>STated otherwise we reject our null hypothesis that they have the same mean rating.</p>
+</div>
+<div id="omega-group-plc--pay-discrimination" class="section level1">
+<h1>Omega Group plc- Pay Discrimination</h1>
+<p>We now take a look at pay discrimination in Omega Group PLC.</p>
+<p>We, of course, take a stastical approach to look at this to avoid biases.</p>
+<p>An issue was raised that women were being discriminated in the company, in the sense that the salaries were not the same for male and female executives. A quick analysis of a sample of 50 employees (of which 24 men and 26 women) revealed that the average salary for men was about 8,700 higher than for women.</p>
+<p>Therefore, this analysis will look into that difference.</p>
+<p>We want to find whether there is indeed a significant difference between the salaries of men and women, and whether the difference is due to discrimination or whether it is based on another, possibly valid, determining factor.</p>
+<div id="loading-the-data" class="section level2">
+<h2>Loading the data</h2>
+<pre class="r"><code>omega &lt;- read_csv(here::here(&quot;data&quot;, &quot;omega.csv&quot;))
+
+glimpse(omega) # examine the data frame</code></pre>
+<pre><code>## Rows: 50
+## Columns: 3
+## $ salary     &lt;dbl&gt; 81894, 69517, 68589, 74881, 65598, 76840, 78800, 70033, 635~
+## $ gender     &lt;chr&gt; &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;ma~
+## $ experience &lt;dbl&gt; 16, 25, 15, 33, 16, 19, 32, 34, 1, 44, 7, 14, 33, 19, 24, 3~</code></pre>
+</div>
+<div id="relationship-salary---gender" class="section level2">
+<h2>Relationship Salary - Gender ?</h2>
+<p>Our dataframe shows the salary, gender, and an experience variable between the employees.</p>
+<p>We can use the experience variable to control for whether this pay gap is based on gender or other factors.</p>
+<p>We can perform different types of analyses, and check whether they all lead to the same conclusion</p>
+<p>. Confidence intervals
+. Hypothesis testing
+. Correlation analysis
+. Regression</p>
+<p>First we We will calculate summary statistics on salary by gender and show summary statistics.</p>
+<p>See below:</p>
+<pre class="r"><code># Summary Statistics of salary by gender
+mosaic::favstats (salary ~ gender, data=omega)</code></pre>
+<pre><code>##   gender   min    Q1 median    Q3   max  mean   sd  n missing
+## 1 female 47033 60338  64618 70033 78800 64543 7567 26       0
+## 2   male 54768 68331  74675 78568 84576 73239 7463 24       0</code></pre>
+<pre class="r"><code>#From the chart we see that the median and mean pay is indeed higher for males than females.
+
+
+#Lets now compute the summary statistics.
+gender&lt;-favstats (salary ~ gender, data=omega) %&gt;% 
+  
+  #Grouping by gender
+  group_by(gender) %&gt;% 
+  
+  #Calculating Summary statistics
+  summarize(mean=mean, #Mean calc.
+            
+            SD=sd, #Standard Deviation
+            
+            sample_size=n, #Sample Size
+            
+            t_critical=qt(0.975,sample_size-1), # 95% confidence interval t-stat
+
+            se=SD/sqrt(sample_size), #Standard error
+
+            margin_error=t_critical*se, # Calculate the margin error for the salary by gender
+
+            salary_low=mean-margin_error, # Get the lower limits of the interval
+
+            salary_high=mean+margin_error) # Get the upper limits of the interval
+
+#Print results
+gender</code></pre>
+<pre><code>## # A tibble: 2 x 9
+##   gender   mean    SD sample_size t_critical    se margin_error salary_low
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;       &lt;int&gt;      &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 female 64543. 7567.          26       2.06 1484.        3056.     61486.
+## 2 male   73239. 7463.          24       2.07 1523.        3151.     70088.
+## # ... with 1 more variable: salary_high &lt;dbl&gt;</code></pre>
+<blockquote>
+<p>From our analysis, we can see that the 95% confidence intervals of the two means do not overlap. It means that the difference between the two means is statistically significant. Therefore, the difference between average salary for men and women is statistically significant and we can assume there is a real difference to be analised. But it would still need to be confirmed by running a t-test. However, we cannot conclude that this is because of gender only from these statistics.</p>
+</blockquote>
+<p>We can also run a hypothesis testing, assuming as a null hypothesis that the mean difference in salaries is zero. See below a t.test and infer package results:</p>
+<pre class="r"><code># hypothesis testing using t.test() 
+t.test(salary ~ gender, data=omega)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  salary by gender
+## t = -4, df = 48, p-value = 2e-04
+## alternative hypothesis: true difference in means between group female and group male is not equal to 0
+## 95 percent confidence interval:
+##  -12973  -4420
+## sample estimates:
+## mean in group female   mean in group male 
+##                64543                73239</code></pre>
+<pre class="r"><code>#WE see we get a very low p-value i.e. the means are indeed different
+
+# hypothesis testing using infer package
+salary_null &lt;- omega %&gt;%
+  
+  #Specify the variable of interest
+  specify(salary ~ gender) %&gt;%
+  
+  #Hypothesize a null of no (or zero) difference
+  hypothesize(null = &quot;independence&quot;) %&gt;%
+  
+  #Generate a bunch of simulated samples
+  generate(reps = 1000, type = &quot;permute&quot;) %&gt;%
+  
+  #Find the mean difference of each sample
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;male&quot;,&quot;female&quot;))
+
+
+#Calculate the difference in means
+obs_diff1 &lt;- omega %&gt;%
+  
+  #Salary based on gender
+  specify(salary ~ gender) %&gt;%
+  
+  #We want to look at difference in means
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;male&quot;, &quot;female&quot;))
+
+
+#Print a historgram
+salary_null %&gt;% visualize() + 
+    
+  #Two sided test with our observations showing.
+  shade_p_value(obs_stat = obs_diff1, direction = &quot;two-sided&quot;)+
+  theme_bw()</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/hypothesis_testing-1.png" width="648" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>Based on our analysis, the null hypothesis that there is no significant difference between average salary for men and women is rejected because the p-value is less than the 0.05 level.</p>
+</blockquote>
+</div>
+<div id="relationship-experience---gender" class="section level2">
+<h2>Relationship Experience - Gender?</h2>
+<p>We now want to confirm whether this is actually based on gender or actual experience.</p>
+<p>The experience of the worksers can be seen below:</p>
+<pre class="r"><code># Summary Statistics of salary by gender
+favstats (experience ~ gender, data=omega)</code></pre>
+<pre><code>##   gender min    Q1 median   Q3 max  mean    sd  n missing
+## 1 female   0  0.25    3.0 14.0  29  7.38  8.51 26       0
+## 2   male   1 15.75   19.5 31.2  44 21.12 10.92 24       0</code></pre>
+<p>We immidieatly see that there is much higher mean and median experience in men. We want to look into this going forward.</p>
+</div>
+<div id="relationship-salary---experience" class="section level2">
+<h2>Relationship Salary - Experience ?</h2>
+<p>Lets first plot how experience compares to salary</p>
+<p>We will calculate summary statistics on experience by gender. We will also create and print a dataframe where, for each gender, we show the mean, SD, sample size, the t-critical, the SE, the margin of error, and the low/high endpoints of a 95% confidence interval</p>
+<pre class="r"><code>#First lets calculate summary statistics
+gender&lt;-favstats (experience ~ gender, data=omega) %&gt;% 
+  
+  #Grouping by gender
+  group_by(gender) %&gt;% 
+  
+  #And calculating summary statistics
+  summarize(mean_experience=mean,
+            SD=sd,
+            sample_size=n,
+            t_critical=qt(0.975,sample_size-1),
+            se=SD/sqrt(sample_size),
+            margin_error=t_critical*se,
+            experience_low=mean-margin_error,
+            experience_high=mean+margin_error)
+
+#Printing the table.
+gender</code></pre>
+<pre><code>## # A tibble: 2 x 9
+##   gender mean_experience    SD sample_size t_critical    se margin_error
+##   &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;       &lt;int&gt;      &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
+## 1 female            7.38  8.51          26       2.06  1.67         3.44
+## 2 male             21.1  10.9           24       2.07  2.23         4.61
+## # ... with 2 more variables: experience_low &lt;dbl&gt;, experience_high &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#We see that the Confidence interval does not overlap in experience. 
+
+#We will also plot salary~experience
+ggplot(omega,aes(x=experience, y=salary)) +
+  
+  #Using Geom Point
+  geom_point(aes(colour=gender, alpha = 0.5))+ #colour by gender to see the differences
+  
+  #Simplifying the theme
+  theme_bw()+
+  
+  #Removing Legend
+  theme(legend.position=&quot;none&quot;)+
+  
+  #Adding a  trendline 
+  geom_smooth(colour=&quot;black&quot;, alpha=0)+ #the correlation seems logarithmic 
+  
+  #Adding useful labels
+  labs (
+    title = &quot;Correlation between Salary and Experience&quot;,
+    x     = &quot;Experience&quot;,
+    y = &quot;Salary&quot; #changing y-axis label to sentence case, 
+  )</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/salary_exp_scatter-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>We clearly see that salary increases with experience! Now this is interesting. Lets dive deeper into the issue.</p>
+</div>
+<div id="check-correlations-between-the-data" class="section level2">
+<h2>Check correlations between the data</h2>
+<p>We compute a graph in the following way:</p>
+<pre class="r"><code>omega %&gt;% 
+  select(gender, experience, salary) %&gt;% #order variables they will appear in ggpairs()
+  ggpairs(aes(colour=gender, alpha = 0.3))+
+  theme_bw()</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/ggpairs-1.png" width="648" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>What we can infer from this plot is that the relationship between salary and experience seems to follow an approximately linear progression. As we can from the graphs, salary and experience are more postively related for female than male. Especially for women with short experience, there seems to be a strong of disparity among average salaries. Furthermore, as people get more experience, men usually have the highest salary for the same years of experience.</p>
+</blockquote>
+</div>
+</div>
+<div id="challenge-1-yield-curve-inversion" class="section level1">
+<h1>Challenge 1: Yield Curve inversion</h1>
+<p>Every so often, we hear warnings from commentators on the “inverted yield curve” and its predictive power with respect to recessions. An explainer what a <a href="https://www.reuters.com/article/us-usa-economy-yieldcurve-explainer/explainer-what-is-an-inverted-yield-curve-idUSKBN1O50GA">inverted yield curve is can be found here</a>.</p>
+<p>In addition, many articles and commentators think that, e.g., <a href="https://www.bloomberg.com/news/articles/2019-08-14/u-k-yield-curve-inverts-for-first-time-since-financial-crisis"><em>Yield curve inversion is viewed as a harbinger of recession</em></a>. One can always doubt whether inversions are truly a harbinger of recessions, and <a href="https://twitter.com/5_min_macro/status/1161627360946511873">use the attached parable on yield curve inversions</a>.</p>
+<p>Lets look a little further into this</p>
+<p><img src="C:/Users/karim/Desktop/Git/my_website/images/yield_curve_parable.jpg" width="100%" style="display: block; margin: auto;" /></p>
+<p>WE are gonna use the <a href="https://fred.stlouisfed.org/">FRED database</a> to download historical yield curve rates, and plot the yield curves since 1999 to see when the yield curves flatten.</p>
+<p>First, we will load the yield curve data file that contains data on the yield curve since 1960-01-01</p>
+<pre class="r"><code>yield_curve &lt;- read_csv(here::here(&quot;data&quot;, &quot;yield_curve.csv&quot;))
+
+glimpse(yield_curve)</code></pre>
+<pre><code>## Rows: 6,884
+## Columns: 5
+## $ date      &lt;date&gt; 1960-01-01, 1960-02-01, 1960-03-01, 1960-04-01, 1960-05-01,~
+## $ series_id &lt;chr&gt; &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS~
+## $ value     &lt;dbl&gt; 4.35, 3.96, 3.31, 3.23, 3.29, 2.46, 2.30, 2.30, 2.48, 2.30, ~
+## $ maturity  &lt;chr&gt; &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, ~
+## $ duration  &lt;chr&gt; &quot;3-Month Treasury Bill&quot;, &quot;3-Month Treasury Bill&quot;, &quot;3-Month T~</code></pre>
+<p>We see that we get the following variables</p>
+<ul>
+<li><code>date</code>: already a date object</li>
+<li><code>series_id</code>: the FRED database ticker symbol</li>
+<li><code>value</code>: the actual yield on that date</li>
+<li><code>maturity</code>: a short hand for the maturity of the bond</li>
+<li><code>duration</code>: the duration, written out in all its glory!</li>
+</ul>
+<p>These will form the base of our plot and analysis</p>
+<div id="plotting-the-yield-curve" class="section level2">
+<h2>Plotting the yield curve</h2>
+<p>Let us compute the following 3 graphs presenting the data:</p>
+<div id="yields-on-us-rates-by-duration-since-1960" class="section level3">
+<h3>Yields on US rates by duration since 1960</h3>
+<p>Let us compute the graph of Yields on U.S. Treasury rates since 1960 as the one below:</p>
+<p><img src="C:/Users/karim/Desktop/Git/my_website/images/yield_curve1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>We reproduce that plot by utitilizing the code below:</p>
+<pre class="r"><code>#First setup a factor for the order of duration we want to plot
+yield_curve1 &lt;- yield_curve %&gt;% 
+  
+  #We setup our preferred order
+  mutate(duration_1 = factor(yield_curve$duration, levels=c(&quot;3-Month Treasury Bill&quot;,
+                                                            &quot;6-Month Treasury Bill&quot;,
+                                                            &quot;1-Year Treasury Rate&quot;,
+                                                            &quot;2-Year Treasury Rate&quot;,
+                                                            &quot;3-Year Treasury Rate&quot;,
+                                                            &quot;5-Year Treasury Rate&quot;,
+                                                            &quot;7-Year Treasury Rate&quot;,
+                                                            &quot;10-Year Treasury Rate&quot;,
+                                                            &quot;20-Year Treasury Rate&quot;,
+                                                            &quot;30-Year Treasury Rate&quot;)))
+  
+#plot the data with dates on x axis and value on y axis
+ggplot(yield_curve1,aes(x=date,y=value,color=duration))+
+  
+  #Using a line plot
+  geom_line()+
+  
+  #Splitting by duration
+  facet_wrap(~duration_1,ncol=2)+
+  
+  #Simple theme
+  theme_bw()+
+  
+  #Removing legend
+  theme(legend.position = &quot;none&quot;)+
+  
+  #Adding useful labels. 
+  labs(title=&quot;Yields on U.S. Treasury rates since 1960&quot;,
+       y=&quot;%&quot;,
+       x=NULL,
+       caption = &quot;Source: St.Louis Federal Reserve Economic Database(FRED)&quot;)+
+  NULL</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/fig-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Interestingly, we see that the rates to indeed swing somewhat in paralel overtime.</p>
+</div>
+<div id="monthly-yields-on-us-rates-by-duration-since-1999-on-a-year-by-year-basis" class="section level3">
+<h3>Monthly yields on US rates by duration since 1999 on a year-by-year basis</h3>
+<p>Let us compute the graph of US Yield Curve as the one below:</p>
+<p><img src="C:/Users/karim/Desktop/Git/my_website/images/yield_curve2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>We reproduce that plot by utitilizing the code below:</p>
+<pre class="r"><code>yield_curve2 &lt;- yield_curve %&gt;% 
+  
+  #subtract the month and year from the dataset
+  mutate(year = year(date),
+         month=month(date)) %&gt;% 
+  
+  #select data of year after 1999
+  filter(year &gt;= 1999)
+
+#group by each month and draw the line
+ggplot(yield_curve2,aes(x=as.factor(maturity),y=value,group=month,color=factor(year)))+
+  geom_line()+
+  
+  #facet by year
+  facet_wrap(~year,ncol=4)+
+  
+  #manually give value to x
+  scale_x_discrete(limits=c(&quot;3m&quot;,&quot;6m&quot;,&quot;1y&quot;,&quot;2y&quot;,&quot;3y&quot;,&quot;5y&quot;,&quot;7y&quot;,&quot;10y&quot;,&quot;20y&quot;,&quot;30y&quot;))+
+  
+  #Simple theme
+  theme_bw()+
+  
+  #Removing legend
+  theme(legend.position = &quot;none&quot;)+
+  
+  #Adding useful labels
+  labs(title=&quot;US Yield Curve&quot;,
+       y=&quot;Yield(%)&quot;,
+       x=&quot;Maturity&quot;,
+       caption = &quot;Source: St.Louis Federal Reserve Economic Database(FRED)&quot;)+
+  NULL</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>What we see is that over the years the yield has been slowly falling across all durations.</p>
+</div>
+<div id="month-and-10-year-yields-since-1999" class="section level3">
+<h3>3-month and 10-year yields since 1999</h3>
+<p>Let us compute the graph of Yield Curve Inversion as the one below:</p>
+<p><img src="C:/Users/karim/Desktop/Git/my_website/images/yield_curve3.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>We reproduce that plot by utitilizing the code below:</p>
+<pre class="r"><code>#select data of year after 1999 &amp; 3-Month Treasury Bill &amp; 10-Year Treasury Rate, calculate the average rate
+yield_curve3 &lt;- yield_curve %&gt;% 
+  
+  #Getting the year
+  mutate(year=year(date)) %&gt;% 
+  
+  #Filtering by years above 1999
+  filter(year &gt;= 1999) %&gt;% 
+  
+  #Filtering the durations we need
+  filter(duration == &quot;3-Month Treasury Bill&quot; | duration==&quot;10-Year Treasury Rate&quot;) %&gt;% 
+  
+  #Grouping by duration and date
+  group_by(duration,date) %&gt;% 
+  
+  #Getting the mean rates 
+  mutate(yield_avg=mean(value))
+  
+  
+
+#We now plot this
+ggplot(yield_curve3,aes(x=date,y=yield_avg,color=duration))+
+  
+  #Line plot
+  geom_line()+
+  
+  #Adding a scale for the year
+  scale_x_date(breaks=seq(as.Date(&quot;2000-01-01&quot;),as.Date(&quot;2020-01-01&quot;),by=&quot;5 years&quot;),date_labels = &quot;%Y&quot;)+
+  
+  #Simple theme
+  theme_bw()+
+  
+  #White legend
+  theme(legend.title=element_blank())+
+  
+  #Useful labels
+  labs(title = &quot;Yield Curve Inversion: 10-year minus 3-month U.S. Treasury rates&quot;, 
+       subtitle = &quot;Difference in % points, monthly averages.
+       Shaded area correspond to recessions&quot;,
+       y = &quot;Difference (10 year-3 month) yield in %&quot;,
+       caption = &quot;Source: FRED, Federal Reserve Bank of St. Louis&quot;) + 
+  NULL</code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>A flattening yield curve is defined as the narrowing of the yield spread between long and short team interest rates. In this case, we can compare the yields of 3-month treasury bill and 10-year treasury rate to confirm whether the yield curve seem to flatten before Mar 2001-Nov 2001 and Dec 2007-June 2009 recessions in the US. Based on the graph we reproduced above, we can see that the yield curve flatten before Mar 2001 and Dec 2007 and recessions followed shortly after. With limited dataset, we cannot be 100% confident that a yield curve flattening really mean a recession is coming in the US. However, there is a high possibility that those two incidents are highly related. Since 1999, short-term yield was larger than longer-term yield in 2001, 2007 and 2019. Since recessions followed when short-term yield was larger than longer-term yield in 2001 and 2007, we need to pay a closer attention to the financial market to see whether the next recession will follow after 2019 yield curve flattening.</p>
+</blockquote>
+</div>
+<div id="the-final-graph-of-yield-curve" class="section level3">
+<h3>The Final Graph of Yield Curve</h3>
+<p>At the end of this challenge, we want to produce this chart:</p>
+<p><img src="C:/Users/karim/Desktop/Git/my_website/images/yield_curve_challenge.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Besides calculating the spread (10year - 3months), we need to first set up data for US recessions.
+The code below creates a dataframe with all US recessions since 1946:</p>
+<pre class="r"><code># get US recession dates after 1946 from Wikipedia 
+# https://en.wikipedia.org/wiki/List_of_recessions_in_the_United_States
+
+recessions &lt;- tibble(
+  from = c(&quot;1948-11-01&quot;, 
+           &quot;1953-07-01&quot;, 
+           &quot;1957-08-01&quot;, 
+           &quot;1960-04-01&quot;, 
+           &quot;1969-12-01&quot;, 
+           &quot;1973-11-01&quot;, 
+           &quot;1980-01-01&quot;,
+           &quot;1981-07-01&quot;, 
+           &quot;1990-07-01&quot;, 
+           &quot;2001-03-01&quot;, 
+           &quot;2007-12-01&quot;,
+           &quot;2020-02-01&quot;),  
+  
+  to = c(&quot;1949-10-01&quot;, 
+         &quot;1954-05-01&quot;, 
+         &quot;1958-04-01&quot;, 
+         &quot;1961-02-01&quot;, 
+         &quot;1970-11-01&quot;, 
+         &quot;1975-03-01&quot;, 
+         &quot;1980-07-01&quot;, 
+         &quot;1982-11-01&quot;, 
+         &quot;1991-03-01&quot;, 
+         &quot;2001-11-01&quot;, 
+         &quot;2009-06-01&quot;, 
+         &quot;2020-04-30&quot;) 
+  )  %&gt;% 
+  
+  mutate(From = ymd(from), 
+         To=ymd(to),
+         duration_days = To-From)
+
+
+recessions</code></pre>
+<pre><code>## # A tibble: 12 x 5
+##    from       to         From       To         duration_days
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;drtn&gt;       
+##  1 1948-11-01 1949-10-01 1948-11-01 1949-10-01 334 days     
+##  2 1953-07-01 1954-05-01 1953-07-01 1954-05-01 304 days     
+##  3 1957-08-01 1958-04-01 1957-08-01 1958-04-01 243 days     
+##  4 1960-04-01 1961-02-01 1960-04-01 1961-02-01 306 days     
+##  5 1969-12-01 1970-11-01 1969-12-01 1970-11-01 335 days     
+##  6 1973-11-01 1975-03-01 1973-11-01 1975-03-01 485 days     
+##  7 1980-01-01 1980-07-01 1980-01-01 1980-07-01 182 days     
+##  8 1981-07-01 1982-11-01 1981-07-01 1982-11-01 488 days     
+##  9 1990-07-01 1991-03-01 1990-07-01 1991-03-01 243 days     
+## 10 2001-03-01 2001-11-01 2001-03-01 2001-11-01 245 days     
+## 11 2007-12-01 2009-06-01 2007-12-01 2009-06-01 548 days     
+## 12 2020-02-01 2020-04-30 2020-02-01 2020-04-30  89 days</code></pre>
+<p>Then we reproduce that plot by utitilizing the code below:</p>
+<pre class="r"><code>#produce a new dataset with 3-Month &amp; 10-Year Treasury Rate
+yield_curve_long &lt;- yield_curve %&gt;% 
+  
+  #Getting the year
+  mutate(year=year(date)) %&gt;% 
+  
+  #Filtering by our required durations
+  filter(duration == &quot;3-Month Treasury Bill&quot; | duration==&quot;10-Year Treasury Rate&quot;) %&gt;% 
+  
+  #Grouping by date and maturity
+  group_by(duration,date) %&gt;% 
+  
+  #Getting mean yield
+  mutate(yield_avg=mean(value))
+
+#select the 3-Month treasury bill
+yield_curve4 &lt;- yield_curve_long %&gt;% 
+  select(maturity,date,yield_avg) %&gt;% 
+  filter(maturity==&quot;3m&quot;)
+
+#select the 10-year treasury rate
+yield_curve5 &lt;- yield_curve_long %&gt;% 
+  select(maturity,date,yield_avg) %&gt;% 
+  filter(maturity == &quot;10y&quot;)
+
+#combine the 3-month&amp; 10-year treasury rate
+yield_curve_rece &lt;- merge(yield_curve4,yield_curve5,by=&quot;date&quot;) %&gt;% 
+  
+  #Setting date format
+  mutate(Date = as.Date(date,format = &quot;%Y-%M-%D&quot;),
+         
+         minus_treasury_rate=yield_avg.y-yield_avg.x, #calculate the 10-year rate minus the 3-month rate
+         
+         color_id = ifelse(minus_treasury_rate&lt;0, 1, 0)) %&gt;%  #define the color for filling 
+  
+  select(Date,minus_treasury_rate,color_id) #Selecting relevant columns
+
+#define the function for y-ray
+scaleFUN &lt;- function(x) sprintf(&quot;%.1f&quot;, x)
+
+
+#filter the date of recessions
+recessions_1 &lt;- recessions %&gt;% 
+  filter(From &gt;= as.Date(&quot;1960-01-01&quot;) | To &gt;= as.Date(&quot;1960-01-01&quot;))
+
+#produce the graph
+ggplot(yield_curve_rece, aes(x = Date , y=minus_treasury_rate)) + 
+  geom_line(color = &quot;black&quot;, size = 0.2) + 
+  
+  #Ribbons which shade in blue and red
+  geom_ribbon(aes(ymin=0,ymax=ifelse(minus_treasury_rate&gt;0, minus_treasury_rate, 0)),fill=&quot;skyblue&quot;,alpha=0.4)+
+  geom_ribbon(aes(ymax=0,ymin=ifelse(minus_treasury_rate&lt;0, minus_treasury_rate, 0)),fill=&quot;salmon&quot;,alpha=0.4) +
+  
+  #Rug which colors based on a the variable computed above and on the x axis
+  geom_rug(mapping = aes(color = factor(color_id)), sides = &quot;b&quot;) +
+  
+  #Setting the rug to blue and red
+  scale_color_manual(values = c(&quot;skyblue&quot;, &quot;salmon&quot;)) +
+  
+  #Simple theme
+  theme_bw() + 
+  
+  #add a line for y=0
+  geom_hline(aes(yintercept=0))+
+  
+  #Removing the legend
+  guides(color=FALSE) + 
+  
+  #Scaling the axis and setting year numbers for the x axis
+  scale_x_date(breaks = seq(as.Date(&quot;1959-01-01&quot;),as.Date(&quot;2023-01-01&quot;),by=&quot;2 years&quot;), date_labels = &quot;%Y&quot;) + 
+  
+  #Setting y axis
+  scale_y_continuous(labels=scaleFUN)+
+  
+  #Adding shading by recession data
+  geom_rect(data= recessions_1, inherit.aes = FALSE,aes(xmin = From, xmax = To, ymin =-Inf , ymax = Inf), fill = &quot;grey&quot;, alpha = 0.3)+
+
+  #Simplifying the theme
+  theme(panel.border=element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_rect(color=&quot;white&quot;,fill=&quot;white&quot;), 
+        axis.title.y = element_blank()) + 
+  
+  #Useful labels
+  labs(title = &quot;Yield Curve Inversion: 10-year minus 3-month U.S. Treasury rates&quot;, 
+       subtitle = &quot;CDifference in % point, monthly averages. \n Shaded areas correspond to recessions &quot;,
+       x = NULL,
+       y = &quot;Difference (10 year-3 month) yield in %&quot;,
+       caption=&quot;Source: FRED, Federal Reserve Bank of St. Louis&quot;)+
+  NULL </code></pre>
+<p><img src="/blogs2/blog3_files/figure-html/unnamed-chunk-6-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>``</p>
+</div>
+</div>
+</div>
