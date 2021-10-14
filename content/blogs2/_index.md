@@ -6,4 +6,4 @@ slug: blogs2
 title: R x Python
 ---
 
-My blog about coding.
+My coding blog.
