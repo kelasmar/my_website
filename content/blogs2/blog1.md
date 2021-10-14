@@ -9,14 +9,6 @@ image: movie.jpg
 keywords: ""
 slug: drinking
 title: Drinking behavior, Movie ratings, Financial returns, German Polls
-output:
-  html_document:
-    theme: flatly
-    highlight: zenburn
-    number_sections: yes
-    toc: yes
-    toc_float: yes
-    code_folding: show
 
 ---
 

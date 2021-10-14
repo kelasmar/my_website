@@ -8,14 +8,7 @@ image: climate.jpg
 keywords: ""
 slug: Climate Change
 title: Climate Change
-output:
-  html_document:
-    theme: flatly
-    highlight: zenburn
-    number_sections: yes
-    toc: yes
-    toc_float: yes
-    code_folding: show
+
 ---
 
 
