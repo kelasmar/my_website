@@ -1,20 +1,19 @@
 ---
 title: "About me"
 slug: "me"
-image: me.jpg
 categories: 
   - "Name"
   - "National of"
   - "Description"
 date: 2017-10-31T21:28:43-05:00
 draft: false
----
+image: me.jpg
 
+---
 Name: Karim El Asmar
 
 National of: Lebanon x Brazil
 
-Description: 
 
 I am 22 years old, I lived in Lebanon for 18 years. Afterwards, I decided to challenge myself and start my undergrad in France to discover a new culture and new horizons.
 
