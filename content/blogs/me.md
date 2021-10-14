@@ -1,7 +1,7 @@
 ---
 title: "About me"
 slug: "me"
-image: mypic.jpg
+image: pic01.jpg
 categories: 
   - "Name"
   - "National of"
