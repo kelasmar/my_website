@@ -8,5 +8,6 @@ image: finance.jpg
 keywords: ""
 slug: blog4
 title: Financial Modelisation
-url: blogs2/Python.pdf
+subtitle: Python
+url: blogs2/python.pdf
 ---
