@@ -595,11 +595,6 @@ A recent study by the Bank for International Settlements (BIS) claimed that the 
 We here have to download data for CPI and the 10 year bill and produce the following graph -> We downloaded the data for for CPI and the 10-year T-Bill and produce graphs on the relation between these variables
 
 
-```{r cpi_10year, echo=FALSE, out.width="90%"}
-knitr::include_graphics(here::here("images", "cpi_10year.png"), error = FALSE)
-```
-
-
 The relevant indicators we will use the replicate that chart can be found in the following links -> We used the following indicators to replicate the chart
 
 - [Consumer Price Index for All Urban Consumers: All Items in U.S. City Average](https://fred.stlouisfed.org/series/CPIAUCSL)

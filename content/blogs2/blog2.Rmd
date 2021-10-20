@@ -410,9 +410,6 @@ glimpse(approval_polllist)
 ```
 We glimpse to understand the data and see an array of factors most importantly the approve and disapprove. 
 
-```{r trump_margins, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "biden_approval_margin.png"), error = FALSE)
-```
 
 ## Create a plot
 
@@ -520,23 +517,10 @@ bike <- bike0 %>%
 
 We can easily create a facet grid that plots bikes hired by month and year.
 
-```{r tfl_month_year_grid, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "tfl_distributions_monthly.png"), error = FALSE)
-```
-
 Interestingly may and June have fallen a lot in bike rentals in 2020. This is likely because of less toursim due to COVID-19 
 
 We now want to reproduce some graphs from this data. 
 
-The first.
-
-
-```{r tfl_absolute_monthly_change, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "tfl_monthly.png"), error = FALSE)
-```
-
-
-Is reproduced through the following
 
 ```{r, fig.width = 10, fig.height = 10}
 #Filtering data from 2016 and forward
@@ -597,10 +581,6 @@ Each year look similar in terms of bike rentals with especially 202 standing out
 
 
 The second one looks at percentage changes from the expected level of weekly rentals. The two grey shaded rectangles correspond to Q2 (weeks 14-26) and Q4 (weeks 40-52).
-
-```{r tfl_percent_change, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "tfl_weekly.png"), error = FALSE)
-```
 
 We produce this plot below
 
