@@ -90,7 +90,7 @@ params:
         url: blogs/Bitcoin.pdf
       - image: CBDC.jpg
         subtitle: CBDC
-        title: Centrale Bank Digital Currency
+        title: Central Bank Digital Currency
         url: blogs/CBDC.pdf
       - image: Monetary.jpg
         subtitle: Analysis of the Lebanon's Economic Collapse
